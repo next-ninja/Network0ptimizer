@@ -10,7 +10,7 @@ Supercharge your VPS or server with one command! This script performs deep clean
 Paste this into your terminal:
 
 # bash
-``bash <(curl -s https://github.com/next-ninja/Network0ptimizer/main/optimizer.py)``
+``bash <(curl -s https://github.com/next-ninja/NetworkOptimizer/main/optimizer.py)``
 # Made by NINJA
 
 If you need any help, join our Next Development Discord server!
