@@ -9,7 +9,7 @@ Supercharge your VPS or server with one command! This script performs deep clean
 # 🚀 Run the Script (One Liner)
 Paste this into your terminal:
 
-bash
+# bash
 bash <(curl -s https://github.com/next-ninja/Network0ptimizer/main/optimizer.py)
 # Made by NINJA
 
