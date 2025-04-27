@@ -91,24 +91,6 @@ def deep_clean_system():
         run(f"sudo bash -c \"{cmd}\"")
     print(f"{YELLOW}✅ System Deep Clean and Slimming Done!{RESET}\n")
 
-def optimize_pterodactyl_panel():
-    print(f"{CYAN}🛡 Boosting Pterodactyl Panel Performance...{RESET}")
-    cmds = [
-        "apt install -y redis-server mariadb-server nginx",
-        "systemctl enable --now redis-server mariadb nginx",
-        "mysql -e \"SET GLOBAL innodb_buffer_pool_size=1G;\"",
-        "mysql -e \"SET GLOBAL innodb_log_file_size=256M;\"",
-        "mysql -e \"SET GLOBAL innodb_flush_log_at_trx_commit=2;\"",
-        "systemctl restart mariadb",
-        "echo 'client_max_body_size 512M;' >> /etc/nginx/nginx.conf",
-        "systemctl restart nginx",
-        "crontab -l | { cat; echo '* * * * * cd /var/www/pterodactyl && php artisan schedule:run >> /dev/null 2>&1'; } | crontab -",
-        "systemctl restart pteroq || true"
-    ]
-    for cmd in cmds:
-        run(f"sudo bash -c \"{cmd}\"")
-    print(f"{CYAN}✅ Pterodactyl Panel Optimization Done.{RESET}\n")
-
 def ultra_vps_speed_optimize():
     print(f"{RED}⚡ Ultra VPS Speed Mode ACTIVATED...{RESET}")
     cmds = [
@@ -148,7 +130,6 @@ def ultimate_vps_clean():
 def full_god_optimize():
     optimize_network_ram_disk()
     deep_clean_system()
-    optimize_pterodactyl_panel()
     ultra_vps_speed_optimize()
     ultimate_vps_clean()
 
@@ -157,23 +138,20 @@ def menu():
     print(f"{CYAN}Choose your SUPAR GOD LEVEL OPTIMIZATION:{RESET}")
     print(f"{GREEN}1️⃣  MAX Network, RAM, Disk Boost ⚡")
     print(f"2️⃣  DEEP Clean VPS (Save Money 💸)")
-    print(f"{CYAN}3️⃣  Optimize Pterodactyl Panel (Speed Boost 🚀)")
-    print(f"{YELLOW}4️⃣  Ultra VPS Speed (Overclock VPS ⚡)")
-    print(f"{RED}5️⃣  FULL SUPAR GOD MODE (Everything) 🚀")
-    print(f"{YELLOW}6️⃣  ULTIMATE VPS CLEANER (Remove All Trash) 🧹\n{RESET}")
+    print(f"{YELLOW}3️⃣  Ultra VPS Speed (Overclock VPS ⚡)")
+    print(f"{RED}4️⃣  FULL SUPAR GOD MODE (Everything) 🚀")
+    print(f"{YELLOW}5️⃣  ULTIMATE VPS CLEANER (Remove All Trash) 🧹\n{RESET}")
 
-    choice = input("Enter choice [1-6]: ").strip()
+    choice = input("Enter choice [1-5]: ").strip()
     if choice == "1":
         optimize_network_ram_disk()
     elif choice == "2":
         deep_clean_system()
     elif choice == "3":
-        optimize_pterodactyl_panel()
-    elif choice == "4":
         ultra_vps_speed_optimize()
-    elif choice == "5":
+    elif choice == "4":
         full_god_optimize()
-    elif choice == "6":
+    elif choice == "5":
         ultimate_vps_clean()
     else:
         print(f"{RED}❌ Invalid selection.{RESET}")
