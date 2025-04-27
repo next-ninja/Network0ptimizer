@@ -30,13 +30,10 @@ def banner():
 def optimize_network_ram_disk():
     print(f"{GREEN}🚀 MAX Boosting Network, RAM, Disk, VPS...{RESET}")
     cmds = [
-        # Load BBR TCP Congestion Control
         "modprobe tcp_bbr",
         "echo 'tcp_bbr' | tee -a /etc/modules-load.d/modules.conf",
         "echo 'net.core.default_qdisc=fq' >> /etc/sysctl.conf",
         "echo 'net.ipv4.tcp_congestion_control=bbr' >> /etc/sysctl.conf",
-
-        # TCP Optimizations
         "echo 'net.ipv4.tcp_fastopen=3' >> /etc/sysctl.conf",
         "echo 'net.ipv4.tcp_mtu_probing=1' >> /etc/sysctl.conf",
         "echo 'net.ipv4.tcp_sack=1' >> /etc/sysctl.conf",
@@ -46,37 +43,23 @@ def optimize_network_ram_disk():
         "echo 'net.core.wmem_max=67108864' >> /etc/sysctl.conf",
         "echo 'net.ipv4.tcp_rmem=4096 87380 67108864' >> /etc/sysctl.conf",
         "echo 'net.ipv4.tcp_wmem=4096 65536 67108864' >> /etc/sysctl.conf",
-
-        # Buffer settings
         "echo 'net.core.netdev_max_backlog=5000' >> /etc/sysctl.conf",
         "echo 'net.core.somaxconn=1024' >> /etc/sysctl.conf",
-
-        # Memory optimization
         "echo 'vm.swappiness=10' >> /etc/sysctl.conf",
         "echo 'vm.dirty_ratio=10' >> /etc/sysctl.conf",
         "echo 'vm.dirty_background_ratio=5' >> /etc/sysctl.conf",
         "echo 'vm.overcommit_memory=1' >> /etc/sysctl.conf",
         "echo 'vm.vfs_cache_pressure=50' >> /etc/sysctl.conf",
-
-        # File descriptors
         "ulimit -n 1048576",
         "echo 'fs.file-max=2097152' >> /etc/sysctl.conf",
-
-        # Kill IPv6
         "echo 'net.ipv6.conf.all.disable_ipv6=1' >> /etc/sysctl.conf",
         "echo 'net.ipv6.conf.default.disable_ipv6=1' >> /etc/sysctl.conf",
-
-        # Boost disk I/O
         "echo 'deadline' > /sys/block/sda/queue/scheduler || true",
-
-        # Flush DNS and set fastest resolvers
         "systemd-resolve --flush-caches",
         "rm -f /etc/resolv.conf",
         "echo 'nameserver 1.1.1.1' > /etc/resolv.conf",
         "echo 'nameserver 8.8.8.8' >> /etc/resolv.conf",
         "echo 'nameserver 9.9.9.9' >> /etc/resolv.conf",
-
-        # Apply settings
         "sysctl -p"
     ]
     for cmd in cmds:
@@ -86,65 +69,112 @@ def optimize_network_ram_disk():
 def deep_clean_system():
     print(f"{YELLOW}🧹 Deep Cleaning System, Saving Money...{RESET}")
     cmds = [
-        # Update & clean
         "apt update && apt upgrade -y",
         "apt autoremove --purge -y && apt autoclean -y",
-
-        # Remove snaps, lxd
         "apt purge -y snapd lxd lxd-client",
         "rm -rf ~/snap /snap /var/snap /var/lib/snapd",
-
-        # Kill useless services
         "systemctl disable --now bluetooth cups avahi-daemon ModemManager ufw rsyslog cron apport",
         "systemctl disable --now snapd systemd-timesyncd",
-
-        # Clean logs
         "journalctl --vacuum-time=1d",
         "sed -i 's/#SystemMaxUse=.*/SystemMaxUse=30M/' /etc/systemd/journald.conf",
         "systemctl restart systemd-journald",
-
-        # Remove old kernels
         "dpkg --list | grep linux-image | awk '{print $2}' | grep -v $(uname -r) | xargs sudo apt purge -y",
-
-        # Empty Trash and Cache
         "rm -rf ~/.cache/* /var/tmp/* /tmp/* /root/.cache/*",
-
-        # Clear bash history
         "history -c && history -w",
-
-        # Set no GUI
         "systemctl set-default multi-user.target",
-
-        # Force CPU governor to performance
         "apt install -y cpufrequtils",
         "echo 'GOVERNOR=\"performance\"' > /etc/default/cpufrequtils",
         "systemctl restart cpufrequtils",
-
-        # Restart services
         "systemctl daemon-reexec"
     ]
     for cmd in cmds:
         run(f"sudo bash -c \"{cmd}\"")
     print(f"{YELLOW}✅ System Deep Clean and Slimming Done!{RESET}\n")
 
+def optimize_pterodactyl_panel():
+    print(f"{CYAN}🛡 Boosting Pterodactyl Panel Performance...{RESET}")
+    cmds = [
+        "apt install -y redis-server mariadb-server nginx",
+        "systemctl enable --now redis-server mariadb nginx",
+        "mysql -e \"SET GLOBAL innodb_buffer_pool_size=1G;\"",
+        "mysql -e \"SET GLOBAL innodb_log_file_size=256M;\"",
+        "mysql -e \"SET GLOBAL innodb_flush_log_at_trx_commit=2;\"",
+        "systemctl restart mariadb",
+        "echo 'client_max_body_size 512M;' >> /etc/nginx/nginx.conf",
+        "systemctl restart nginx",
+        "crontab -l | { cat; echo '* * * * * cd /var/www/pterodactyl && php artisan schedule:run >> /dev/null 2>&1'; } | crontab -",
+        "systemctl restart pteroq || true"
+    ]
+    for cmd in cmds:
+        run(f"sudo bash -c \"{cmd}\"")
+    print(f"{CYAN}✅ Pterodactyl Panel Optimization Done.{RESET}\n")
+
+def ultra_vps_speed_optimize():
+    print(f"{RED}⚡ Ultra VPS Speed Mode ACTIVATED...{RESET}")
+    cmds = [
+        "apt install -y haveged",
+        "systemctl enable --now haveged",
+        "echo 'vm.overcommit_memory = 1' >> /etc/sysctl.conf",
+        "sysctl -p",
+        "echo 'net.ipv4.tcp_low_latency=1' >> /etc/sysctl.conf",
+        "systemctl disable --now systemd-resolved",
+        "systemctl stop systemd-resolved",
+        "rm -f /etc/resolv.conf",
+        "echo 'nameserver 1.1.1.1' > /etc/resolv.conf",
+        "echo 'nameserver 8.8.8.8' >> /etc/resolv.conf",
+        "systemctl daemon-reexec"
+    ]
+    for cmd in cmds:
+        run(f"sudo bash -c \"{cmd}\"")
+    print(f"{RED}✅ VPS Ultra-Speed Optimization Complete!{RESET}\n")
+
+def ultimate_vps_clean():
+    print(f"{YELLOW}🧹 ULTIMATE VPS CLEANER: Nuking temp files and trash...{RESET}")
+    cmds = [
+        "rm -rf /tmp/* /var/tmp/* /root/tmp/* ~/tmp/*",
+        "rm -rf ~/.cache/* /root/.cache/*",
+        "journalctl --vacuum-size=50M",
+        "apt clean && apt autoclean && apt autoremove -y",
+        "find /var/log -type f -name '*.log' -delete",
+        "rm -rf /var/backups/*",
+        "history -c && history -w",
+        "sync; echo 3 > /proc/sys/vm/drop_caches",
+        "swapoff -a && swapon -a"
+    ]
+    for cmd in cmds:
+        run(f"sudo bash -c \"{cmd}\"")
+    print(f"{YELLOW}✅ VPS Super Clean Complete!{RESET}\n")
+
 def full_god_optimize():
     optimize_network_ram_disk()
     deep_clean_system()
+    optimize_pterodactyl_panel()
+    ultra_vps_speed_optimize()
+    ultimate_vps_clean()
 
 def menu():
     banner()
-    print(f"{CYAN}Choose your GOD MODE OPTIMIZATION:{RESET}")
+    print(f"{CYAN}Choose your SUPAR GOD LEVEL OPTIMIZATION:{RESET}")
     print(f"{GREEN}1️⃣  MAX Network, RAM, Disk Boost ⚡")
     print(f"2️⃣  DEEP Clean VPS (Save Money 💸)")
-    print(f"{RED}3️⃣  FULL SUPAR GOD MODE (Everything) 🚀\n{RESET}")
+    print(f"{CYAN}3️⃣  Optimize Pterodactyl Panel (Speed Boost 🚀)")
+    print(f"{YELLOW}4️⃣  Ultra VPS Speed (Overclock VPS ⚡)")
+    print(f"{RED}5️⃣  FULL SUPAR GOD MODE (Everything) 🚀")
+    print(f"{YELLOW}6️⃣  ULTIMATE VPS CLEANER (Remove All Trash) 🧹\n{RESET}")
 
-    choice = input("Enter choice [1-3]: ").strip()
+    choice = input("Enter choice [1-6]: ").strip()
     if choice == "1":
         optimize_network_ram_disk()
     elif choice == "2":
         deep_clean_system()
     elif choice == "3":
+        optimize_pterodactyl_panel()
+    elif choice == "4":
+        ultra_vps_speed_optimize()
+    elif choice == "5":
         full_god_optimize()
+    elif choice == "6":
+        ultimate_vps_clean()
     else:
         print(f"{RED}❌ Invalid selection.{RESET}")
 
