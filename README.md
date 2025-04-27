@@ -1,19 +1,58 @@
-# 🔥 SUPAR GOD VPS & NETWORK OPTIMIZER
-Ultimate All-in-One Auto Boosting Script for VPS/Servers
+# 🚀 SUPAR GOD MODE VPS OPTIMIZER
+🔥 The ULTIMATE Network, RAM, Disk, Pterodactyl Panel, and System Cleaner for your VPS!
+💻 Boost your VPS SPEED to God Level and Save Money by cleaning useless junk!
 
-Supercharge your VPS or server with one command! This script performs deep cleaning, network/RAM/disk boosting, disables bloatware, and enables full-speed performance mode. Get ultra-low latency, save resources, and run like a god.
+# 📦 Features
+MAX Network + RAM + Disk Optimization
 
-# ⚡ Features
-✅ Enable BBR for ultra-fast TCP speeds ✅ Optimize RAM, swap, and virtual memory ✅ Boost disk I/O & kernel params ✅ Flush DNS & apply fastest resolvers ✅ Disable useless services (Bluetooth, Snap, LXD, etc.) ✅ Purge logs & cache to free up disk ✅ Set CPU governor to performance ✅ Switch to non-GUI mode for pure server use ✅ Auto remove old kernels & packages ✅ Fully automated — zero interaction needed after run
+DEEP System Cleaning & Slimming
 
-# 🚀 Run the Script (One Liner)
-Paste this into your terminal:
+Pterodactyl Panel Speed Optimization (SCP-L)
 
-# Preview
-![](https://media.discordapp.net/attachments/1355209048659722292/1365909391068364860/image.png?ex=680f05c0&is=680db440&hm=f41791fc2587951d2c08c2d782fa35d33e195b87f513158e3c5ab8c2f3b752c0&=&format=webp&quality=lossless&width=1044&height=538)
+ULTRA VPS Speed Overclock
+
+ULTIMATE VPS Cleaner (Remove Temp, Trash, Logs)
+
+FULL GOD MODE (All combined 🔥)
+
+# 🛠 Requirements
+Ubuntu 18.04 / 20.04 / 22.04 / Debian (recommended)
+
+sudo privileges
+
+Python 3 installed (apt install python3 -y)
+
+# 🚀 Installation & Usage
 
 # bash
-``bash <(curl -s https://raw.githubusercontent.com/next-ninja/Network0ptimizer/refs/heads/main/install.sh)``
-# Made by NINJA
 
-If you need any help, join our Next Development Discord server!
+``bash <(curl -s https://raw.githubusercontent.com/next-ninja/Network0ptimizer/refs/heads/main/install.sh)``
+
+# 📜 Menu Options
+
+# Option	Action
+1️⃣	MAX Network, RAM, Disk Boost ⚡
+2️⃣	DEEP Clean VPS (Save Money 💸)
+3️⃣	Optimize Pterodactyl Panel (Speed Boost 🚀)
+4️⃣	Ultra VPS Speed (Overclock VPS ⚡)
+5️⃣	FULL SUPAR GOD MODE (Everything) 🚀
+6️⃣	ULTIMATE VPS CLEANER (Remove All Trash) 🧹
+# ⚠️ Warning
+This script is powerful and aggressive.
+
+Not recommended on critical production servers unless you know what you're doing!
+
+Always backup important data before running FULL GOD MODE!
+
+# 👑 Author
+Made with ❤️ by NINJA
+
+🛡 Making VPS faster, lighter, and cheaper!
+
+# 📢 License
+This project is FREE to use under the MIT License.
+
+# 💬 Final Words
+✅ Make your VPS a BEAST!
+✅ Faster network, faster panel, faster system, more storage, more RAM!
+✅ FEEL THE POWER OF GOD MODE 🚀
