@@ -9,6 +9,9 @@ Supercharge your VPS or server with one command! This script performs deep clean
 # 🚀 Run the Script (One Liner)
 Paste this into your terminal:
 
+# Preview
+![](https://media.discordapp.net/attachments/1355209048659722292/1365909391068364860/image.png?ex=680f05c0&is=680db440&hm=f41791fc2587951d2c08c2d782fa35d33e195b87f513158e3c5ab8c2f3b752c0&=&format=webp&quality=lossless&width=1044&height=538)
+
 # bash
 ``bash <(curl -s https://raw.githubusercontent.com/next-ninja/Network0ptimizer/refs/heads/main/install.sh)``
 # Made by NINJA
